@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useGesture } from '@use-gesture/react';
 import { useRef } from 'react';
 
-export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die+".gif"),reset_dice=(()=>{})}) {
+export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die+".gif"),reset_dice=(()=>{}), className=""},) {
 
     const [qty,setQty] = useState(1)
     const [modifier,setModifier] = useState(0)
@@ -102,6 +102,11 @@ export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die
             console.log("Max modifier is +100")
         }
     }
+    function reset(){
+        console.log("Reset die")
+        setQty(1)
+        setModifier(0)
+    }
 
 
 
@@ -130,9 +135,7 @@ export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die
         console.log(key)
         //
         if(key === null){
-            console.log("Reset die")
-            setQty(1)
-            setModifier(0)
+            reset()
         }
         if(""+key=="ShiftLeft"){
             remove_die()
@@ -151,8 +154,7 @@ export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die
           const timeSince = now - lastTap.current;
     
           if (timeSince < DOUBLE_TAP_THRESHOLD) {
-            console.log('Double tap detected!');
-            // 🔥 Do something here on double tap
+            reset()
           }
     
           lastTap.current = now;
@@ -164,7 +166,7 @@ export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die
 
     <div 
     tabIndex="0" 
-    className='relative h-[100%] aspect-square m-auto  ' 
+    className={'relative h-[100%] aspect-square m-auto  '+ className} 
     /* Computer commands */ 
     onMouseEnter={()=>(setHover(true))}
     onMouseLeave={()=>(setHover(false))}
@@ -184,11 +186,17 @@ export default function Die({die=6,img_path=("/d"+die+".png"),gif_path=("/d"+die
       <img {...bind()} src={gif_path} alt={"d"+die+"_gif"} className='h-[90%] absolute top-1/2 right-1/2 transform -translate-y-1/2 translate-x-1/2'></img>}
 
 
-        <div className={'absolute top-1/2 right-1/2 transform -translate-y-1/2 translate-x-1/2 text-white text-xl font-extrabold select-none '+(hover?"opacity-100 ":"opacity-0 ")}>
+        <div 
+            className={'bg-base-100 shadow aspect-square h-[20%] rounded-full absolute top-1/10 right-0 text-dark select-none '+(hover?"opacity-100 ":"opacity-0 ")}
+            onClick={()=>{increase_mod()}}
+        >
             {(modifier>=0)?"+"+modifier:""+modifier}
         </div>
 
-        <div className={'absolute bottom-0 right-0 text-white select-none '+(hover?"opacity-40 ":"opacity-0 ")}>
+        <div 
+            className={'bg-base-100 shadow aspect-square h-[20%] rounded-full absolute bottom-0 right-0 text-dark select-none '+(hover?"opacity-100 ":"opacity-0 ")}
+            onClick={()=>{add_die()}}    
+        >
             x{qty}
         </div>
     </div>

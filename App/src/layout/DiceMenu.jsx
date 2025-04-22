@@ -10,6 +10,8 @@ import Die from "../components/Die";
 //
 export default function DiceMenu() {
 
+  gsap.registerPlugin(Draggable)
+
     const [toggle, setToggle] = useState(false);
     const [hover, setHover] = useState(false);
 
@@ -20,7 +22,7 @@ export default function DiceMenu() {
         let array = [4,6,8,10,12,20,100]
         //
         return array.map((value,key)=>{
-            return <div key={key} className=" h-[10vh] tab tab-bordered"> <Die key={key} die={value} /> </div>
+            return <div key={key} className=" h-[10vh] tab tab-bordered"> <Die key={key} die={value} className="shadow rounded-full" /> </div>
         })
     }
 
@@ -54,12 +56,12 @@ export default function DiceMenu() {
 
     <div
     id="DiceMenuIcon"
-    className={" transition-opacity duration-700 ease-in-out fixed bottom-0 right-0  w-full h-[15vh]  bg-opacity-70 cursor-grab rounded-lg shadow-md rounded-full "
+    className={" transition-opacity duration-700 ease-in-out fixed bottom-0 right-0  w-full h-[15vh]  cursor-grab "
     + (toggle?" opacity-100 ":" opacity-0 ")
     }
     //style={{ position: "absolute", top: 50, left: 50 }}
     >
-        <div className="bg-base-100  h-[95%] w-[95%] mx-auto  rounded-xl overflow-hidden ">
+        <div className="bg-base-100  h-[95%] w-[95%] mx-auto  rounded-full overflow-hidden ">
             <div  
                 ref={scrollRef}
                 className={
@@ -78,7 +80,7 @@ export default function DiceMenu() {
     </div>
 
 
-    <div className="fixed bottom-0 right-0  m-3 w-[10vh] h-[10vh]  cursor-grab rounded-lg  rounded-full select-none"
+    <div className="fixed bottom-0 right-0  m-3 w-[10vh] h-[10vh]  cursor-grab  rounded-full select-none"
     onMouseEnter={() => setHover(true)}
     onMouseLeave={() => setHover(false)}
     onClick={() => setToggle(!toggle)}
