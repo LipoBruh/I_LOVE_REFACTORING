@@ -1,0 +1,10 @@
+
+@import "tailwindcss";
+@plugin "daisyui" {
+    themes:  emerald  --default;
+  }
+
+  .shadow-x-inset {
+    box-shadow: inset 2vw 0 5px -5px  rgba(40, 40, 40, 0.2),
+                inset -2vw 0 5px -5px rgba(40, 40, 40, 0.2);
+  }
