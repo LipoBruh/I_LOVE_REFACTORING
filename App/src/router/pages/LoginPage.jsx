@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import {  Input,  Label,  TextField, Text, FieldError,Button } from 'react-aria-components';
+import {  Input,  Label,  TextField, Text, FieldError,Button, OverlayArrow, Tooltip, TooltipTrigger } from 'react-aria-components';
 // src/hooks/useHealth.js
 import { useQuery } from "@tanstack/react-query";
 import { fetchHealth } from '../../api/health';
+import HelpComponent from '../../components/HelpComponent';
 
 
 export default function LoginPage() {
@@ -24,9 +25,11 @@ export default function LoginPage() {
       <br/>
       <div className='text-xs text-gray-400 w-[100%] p-4 '>
         Nous allons vous envoyer un code sur Discord pour vous connecter (2FA).
+        <HelpComponent icon="?" text="Le code vous sera envoyé par notre Bot en messagerie privée. "/>
       </div>
       <Button type="submit" className="btn btn-secondary w-full " onClick={()=>setToggle(true)}>Envoyer le code</Button>
     </TextField>
+
 
 
 
