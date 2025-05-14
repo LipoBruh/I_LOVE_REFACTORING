@@ -11,7 +11,7 @@ export default class Roller {
     }
 
 
-    setDice(value){
+    setDie(value){
         if(value && [2,4,6,8,10,12,20,100].includes(value)){
             if (value==20){
                 this.skill=true
@@ -31,6 +31,30 @@ export default class Roller {
             if (!this.reroll_on_die.includes(value))
             this.reroll_on_die.push(value)
         }
+    }
+    setReroll(value){
+        if(!value)
+            return
+        //
+        value = (value+"").toLowerCase()
+        console.log(value)
+        //
+        switch(value.toLowerCase()){
+            case "advantage":
+                this.advantage()
+                break
+            case "disadvantage":
+                this.disadvantage()
+                break
+            case "elvenaccuracy":
+                this.elvenAccuracy()
+                break
+            default:
+                this.reroll_value=false
+        }
+
+
+
     }
     /* Will induce rerolls on d20 checks */
     advantage(){
@@ -128,10 +152,13 @@ export default class Roller {
                     switch(this.reroll_value){
                         case "advantage":
                             value = Math.max(...short_list);
+                            break;
                         case "disadvantage":
                             value = Math.min(...short_list);
+                            break;
                         case "elvenAccuracy":
                             value = Math.max(...short_list);
+                            break;
                     }
                 }
                 /* Added to list */

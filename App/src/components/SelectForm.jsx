@@ -1,14 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button,Label,ListBox,ListBoxItem,Popover,Select,SelectValue} from 'react-aria-components';
   
-export default function SelectForm({entries,className,labelText,labelStyle,dropdownStyle, hoverStyle,inputStyle,arrowIcon, placeholderText,placeholderStyle}) {
+export default function SelectForm({entries,className,labelText,labelStyle,dropdownStyle, hoverStyle,inputStyle,arrowIcon, placeholderText,placeholderStyle,hook}) {
 
+    const [selected, setSelected] = useState(null);
+
+    function handleSelectionChange(selectedKey) {
+        setSelected(selectedKey);
+        hook(selectedKey)
+    }
 
     function render(entries=[]){
 
 
-        let list = Object.keys(entries).map((e,index)=>{
-            return <ListBoxItem key={index} className={hoverStyle?hoverStyle:""}>{e+""}</ListBoxItem>
+        let list = (entries).map((e,index)=>{
+            return <ListBoxItem id={e.id} key={e.id} className={hoverStyle?hoverStyle:""}>{e.value+""}</ListBoxItem>
         })
         console.log(list)
         return <ListBox>{list}</ListBox>
@@ -21,7 +27,7 @@ export default function SelectForm({entries,className,labelText,labelStyle,dropd
 
   return (
     <div className={className?className:''}>
-    <Select>
+    <Select selectedKey={selected} onSelectionChange={handleSelectionChange}>
         {labelText?<Label className={labelStyle?labelStyle:""}>{labelText}</Label>:""}
         
         <div className='inline '>
